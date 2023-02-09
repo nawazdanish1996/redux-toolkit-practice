@@ -1,18 +1,33 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addUser, removeUser, deleteAllUsers} from "../store/slice/userSlice";
-import  { fakeUserData } from  "../api/index"
+import { 
+    addUser, 
+    removeUser, 
+    // deleteAllUsers
+} from "../store/slice/userSlice";
+import  { fakeUserData } from  "../api/index";
+import { deleteAllUsers } from '../store/actions';
 
 const AddUsers = () => {
     const data = useSelector((state)=> {return state.users});
     const dispatch = useDispatch();
-
+    
     const addNewUserHandler = (payload) =>{
         dispatch(addUser(payload));
     }
-
+    
     const removeUserHandler = (id) =>{
-        dispatch(removeUser(id))
+        let del = window.confirm("Are you sure?");
+        if(del === true){
+            dispatch(removeUser(id));
+        }
+    }
+    
+    const deleteAllTheUsers = () =>{
+        let delAll = window.confirm("Are you sure?");
+        if(delAll === true){
+            dispatch(deleteAllUsers());
+        }
     }
 
   return (
@@ -39,17 +54,17 @@ const AddUsers = () => {
                             <p className='float-start'>{val}</p>
                             <button onClick={()=> removeUserHandler(id)} className="btn btn-danger float-end">
                             <i className="fa-solid fa-trash-can"></i>
-                            {/* &nbsp; Delete User */}
                             </button>
                         </div>
                     )
                 })}
 
                 <div className="col-md-12 mt-4">
-                    <button onClick={()=> dispatch(deleteAllUsers())} className='btn float-end btn-danger'>
+                    <button onClick={deleteAllTheUsers} className='btn float-end btn-danger'>
                         <i className="fa-solid fa-trash-can"></i>&nbsp; Delete All Users
                     </button>
                 </div>
+
             </div>
         </div>
     </div>
