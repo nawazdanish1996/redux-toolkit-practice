@@ -1,9 +1,10 @@
 import './App.scss';
+import CounterApp from './components/CounterApp';
 
 function App() {
   return (
     <div className="App">
-      <h1>Started</h1>
+      <CounterApp />
     </div>
   );
 }
